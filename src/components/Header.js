@@ -8,13 +8,13 @@ const Header = () => {
             {/* top nav */}
                 <div className="flex items-center bg-amazon_blue p-1 flex-grow py-2 flex-wrap">       
 
-                    <div className="mt-2 flex items-center flex-grow sm:flex-grow-0 ">
+                    <div className=" w-24 sm:mt-2 flex items-center flex-grow sm:flex-grow-0  ">
                              <Image
                             src="https://links.papareact.com/f90" width={150} height={40} objectFit="contain" className="cursor-pointer"/>
                     
                     </div>
               
-                     <div className="order-2 sm:order-none   flex items-center flex-grow cursor-pointer h-10 rounded-md bg-yellow-400 hover:bg-yellow-500 ">    {/*  search-bar */}
+                     <div className="  flex items-center flex-grow cursor-pointer h-10 rounded-md bg-yellow-400 hover:bg-yellow-500  order-last sm:order-none  ">    {/*  search-bar */}
 
                     <input className="p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none px-4" type="text" />
                     <SearchIcon className="h-12 p-4"/>
