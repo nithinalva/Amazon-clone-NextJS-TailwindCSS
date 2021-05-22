@@ -6,7 +6,7 @@ const Header = () => {
     return (
         <header>
             {/* top nav */}
-                <div className="flex items-center bg-amazon_blue p-1 flex-grow py-2">       
+                <div className="flex items-center bg-amazon_blue p-1 flex-grow py-2 flex-wrap">       
 
                     <div className="mt-2 flex items-center flex-grow sm:flex-grow-0 ">
                              <Image
@@ -14,7 +14,7 @@ const Header = () => {
                     
                     </div>
               
-                     <div className="hidden sm:flex items-center flex-grow cursor-pointer h-10 rounded-md bg-yellow-400 hover:bg-yellow-500">    {/*  search-bar */}
+                     <div className="order-2 sm:order-none   flex items-center flex-grow cursor-pointer h-10 rounded-md bg-yellow-400 hover:bg-yellow-500 ">    {/*  search-bar */}
 
                     <input className="p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none px-4" type="text" />
                     <SearchIcon className="h-12 p-4"/>
@@ -24,11 +24,11 @@ const Header = () => {
                      <div className="mx-6 flex items-center text-xs space-x-6  whitespace-nowrap">
                              <div className= "link">       {/* right side of container*/}
                                 <p className="text-white md:text-xs">Hello, Nithin Alva</p>
-                                <p className="text-white font-bold md:text-xs">Accounts & Lists</p>
+                                <p className="hidden sm:inline text-white font-bold md:text-xs">Accounts & Lists</p>
                             </div>
                             
 
-                            <div className= "link" >       {/* right side of container*/}
+                            <div className= "hidden sm:link" >       {/* right side of container*/}
                                 <p className="text-white ">Returns</p>
                                 <p className="text-white font-bold md:text-xs ">& Orders</p>
                             </div>
