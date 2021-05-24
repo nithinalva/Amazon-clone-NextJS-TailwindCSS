@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Live Demo : https://amazon-clone-next-js-tailwind-css.vercel.app/
+Live Demo : https://nithin-alva-project-amazon-clone-next-js-tailwind-css.vercel.app/
 
 
 ## Getting Started
