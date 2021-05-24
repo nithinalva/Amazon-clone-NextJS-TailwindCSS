@@ -16,7 +16,7 @@ export default function Home({products}) {
   </head>
   {/* <h1>hey nithin alva</h1> */}
   <Header products={products}/>
-    <main className="max-w-screen-2xl my-36 md:my-28 mx-auto">
+    <main className="max-w-screen-2xl my-44 md:my-28 mx-auto">
 
 
 

@@ -99,9 +99,26 @@ const Header = ({products}) => {
 
                 </div>
 
+                
+                <div className=" bg-amazon_blue-light1 h-11 flex-shrink sm:hidden items-center  ">
+                     <div className="flex items-center">
+             
+                  <p className=" leading-3 text-sm text-white flex items-center mx-3  my-1"><LocationMarkerIcon className="text-white  h-6"/>Deliver to Nithin</p>
+                   <p className="text-white text-center  flex items-center text-sm my-2">
+                   Bengaluru 560078</p>
+                </div>
+
+          
+
+
+                </div>
+
+
+
+
                     <Drawer anchor="left"open={open} onClose={()=>setopen(false)}>
 
-                                        <div className=" w-72 sm:w-96 flex-col pr-2 ">
+                                        <div className=" w-72 sm:w-96 flex-col  ">
 
                                             <div className="flex bg-amazon_blue-light h-14 ">
                                                 <p className="text-white font-bold text-2xl flex items-center mx-8"><UserIcon className="h-6 mr-1"/> Hello, Nithin</p>
