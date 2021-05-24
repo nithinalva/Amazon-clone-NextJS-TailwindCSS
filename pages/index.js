@@ -12,9 +12,10 @@ export default function Home({products}) {
     <title>
       AMAZON 2.0
     </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
   </head>
   {/* <h1>hey nithin alva</h1> */}
-  <Header/>
+  <Header products={products}/>
     <main className="max-w-screen-2xl my-36 md:my-28 mx-auto">
 
 

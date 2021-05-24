@@ -1,8 +1,23 @@
 import Image from 'next/image'
-import { SearchIcon,MenuIcon,ShoppingCartIcon,LocationMarkerIcon} from '@heroicons/react/outline'
+import {useState} from 'react'
+import { SearchIcon,MenuIcon,ShoppingCartIcon,LocationMarkerIcon,ChevronRightIcon} from '@heroicons/react/outline'
+import {UserIcon} from '@heroicons/react/solid'
+import {Drawer} from '@material-ui/core'
 
 
-const Header = () => {
+const Header = ({products}) => {
+
+
+    const [open, setopen] = useState(false)
+
+
+    const sideBarHandler=()=>{
+
+        setopen(true)
+    }
+    // const [products1, setproducts] = useState([{products}])
+
+
     return (
         <header className="w-full fixed z-50 top-0">
             {/* top nav */}
@@ -65,7 +80,7 @@ const Header = () => {
     {/* 
  bottom nav */}           
                  <div className=" flex-shrink-0 w-90 flex items-center space-x-6 p-2 pl-6 bg-amazon_blue-light text-white text-xs lg:text-lg">
-                        <p className="flex link items-center ">
+                        <p className="flex link items-center " onClick={()=>sideBarHandler()}>
                         <MenuIcon className="h-6 mr-1"/>
                         All
                         </p>
@@ -84,7 +99,157 @@ const Header = () => {
 
                 </div>
 
-            
+                    <Drawer anchor="left"open={open} onClose={()=>setopen(false)}>
+
+                                        <div className=" w-72 sm:w-96 flex-col pr-2 ">
+
+                                            <div className="flex bg-amazon_blue-light h-14 ">
+                                                <p className="text-white font-bold text-2xl flex items-center mx-8"><UserIcon className="h-6 mr-1"/> Hello, Nithin</p>
+                                            </div>
+                                            <div className="flex h-14">
+                                                <p className="font-bold flex  items-center mx-8 text-amazon_blue-light text-xl ">Trending</p>
+                                            </div>
+                                            <div className="flex w-full h-10 items-center  hover:bg-gray-200 cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8">Best Sellers</p>
+                                            </div>
+                                            <div className="flex h-10 items-center hover:bg-gray-200 cursor-pointer ">
+                                                <p className="text-amazon_blue-light mx-8">New Releases</p>
+                                            </div>
+                                            <div className="flex h-10 items-center hover:bg-gray-200 cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8">Movies & Shakers</p>
+                                            
+                                            </div>
+
+                                            <div className="w-full my-4 bg-gray-300 h-0.5"/>
+                                            
+                                            <div className="flex h-14">
+                                                <p className="font-bold flex  items-center mx-8 text-amazon_blue-light text-xl">Digital Content And Devices</p>
+                                            </div>
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200 cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 w-full flex-shrink">Echo & Alexa</p>
+                                                <ChevronRightIcon className="h-8 text-gray-500 "/>
+                                            </div>
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200 cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 w-full flex-shrink">Fire TV</p>
+                                                <ChevronRightIcon className="h-8 text-gray-500 "/>
+                                            </div>
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 w-full flex-shrink">Kindle E-Reader & eBooks</p>
+                                                <ChevronRightIcon className="h-8 text-gray-500 "/>
+                                            
+                                            </div>
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200 cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 w-full flex-shrink">Audible Audiobooks</p>
+                                                <ChevronRightIcon className="h-8 text-gray-500 "/>
+                                            
+                                            </div>
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200 cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex item w-full flex-shrink">Amazon Prime Video</p>
+                                                <ChevronRightIcon className="h-8 text-gray-500 "/>
+                                            </div>
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Amazon Prime Music </p>
+                                                <ChevronRightIcon className="h-8 text-gray-500 "/>
+                                            
+                                            </div>
+                                            <div className="w-full my-4 bg-gray-300 h-0.5"/>
+                                            <div className="flex h-14">
+                                                <p className="font-bold flex  items-center mx-8 text-amazon_blue-light text-xl">Shop By Department</p>
+                                            </div>
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Amazon Mobiles,Computers</p>
+                                                <ChevronRightIcon className="h-8 text-gray-500 "/>
+                                            
+                                            </div>
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Tv,Appliances,Electronics</p>
+                                                <ChevronRightIcon className="h-8 text-gray-500 "/>
+                                            
+                                            </div>
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Men's Fashion</p>
+                                                <ChevronRightIcon className="h-8 text-gray-500 "/>
+                                            
+                                            </div>
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Women's Fashion</p>
+                                                <ChevronRightIcon className="h-8 text-gray-500 "/>
+                                            
+                                            </div>
+
+                                            <div className="w-full my-4 bg-gray-300 h-0.5"/>
+
+                                            <div className="flex h-14">
+                                                <p className="font-bold flex  items-center mx-8 text-amazon_blue-light text-xl">Programs & Features</p>
+                                            </div>
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Gift Card's & Mobile Recharges</p>
+                                                <ChevronRightIcon className="h-8 text-gray-500 "/>
+                                            
+                                            </div>
+
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Flight Tickets</p>
+                                            
+                                            
+                                            </div>
+
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Amazon Assistant</p>
+                                            
+                                            
+                                            </div>
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Full Store Delivery</p>
+                                            
+                                            
+                                            </div>
+
+
+
+                                            <div className="w-full my-4 bg-gray-300 h-0.5"/>
+
+                                            <div className="flex h-14">
+                                            <p className="font-bold flex  items-center mx-8 text-amazon_blue-light text-xl">Helps & Settings</p>
+                                            </div>
+
+                                                <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Your Account</p>
+                                            
+                                            
+                                            </div>
+                                            
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Customer Service</p>
+                                            
+                                            
+                                            </div>
+                                            
+
+                                            <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Sign out</p>
+                                            
+                                            
+                                            </div>
+                                            
+
+
+                                            </div>
+                </Drawer>
         </header>
     )
 }

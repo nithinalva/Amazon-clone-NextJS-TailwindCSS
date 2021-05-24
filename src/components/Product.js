@@ -1,6 +1,8 @@
 import { StarIcon } from '@heroicons/react/solid';
 import Image from 'next/image'
-import {useState} from 'react'
+import {useState} from 'react';
+
+
 import NumberFormat from 'react-number-format';
 
 const Product = ({id,title,price,description,category,image}) => {
@@ -21,6 +23,7 @@ const Product = ({id,title,price,description,category,image}) => {
 
             <div>
             <NumberFormat  value={price} isNumericString={true} prefix={'$'} className="mb-5" />
+          
             </div>
              {isPrime && 
              <div className="flex items-center mx-2 -mt-5">
