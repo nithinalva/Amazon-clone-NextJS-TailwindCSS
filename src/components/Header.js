@@ -22,7 +22,7 @@ const Header = ({products}) => {
         <header className="w-full fixed z-50 top-0">
             {/* top nav */}
                 <div className=" flex items-center bg-amazon_blue p-1 flex-grow  flex-wrap  ">       
-
+                    <MenuIcon className="inline h-10 mx-1 mb-3 text-white items-center sm:hidden" onClick={()=>sideBarHandler()}/>
                     <div className=" w w-24 sm:w-auto mt-2 flex items-center flex-grow sm:flex-grow-0  ">
                              <Image
                             src="https://links.papareact.com/f90" width={150} height={50} objectFit="contain" className="cursor-pointer"/>
@@ -81,7 +81,7 @@ const Header = ({products}) => {
  bottom nav */}           
                  <div className=" flex-shrink-0 w-90 flex items-center space-x-6 p-2 pl-6 bg-amazon_blue-light text-white text-xs lg:text-lg">
                         <p className="flex link items-center " onClick={()=>sideBarHandler()}>
-                        <MenuIcon className="h-6 mr-1"/>
+                        <MenuIcon className="hidden sm:inline h-6 mr-1"/>
                         All
                         </p>
                         <p className="link ">Fresh</p>
