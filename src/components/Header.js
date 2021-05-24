@@ -4,7 +4,7 @@ import { SearchIcon,MenuIcon,ShoppingCartIcon,LocationMarkerIcon,ChevronRightIco
 import {UserIcon} from '@heroicons/react/solid'
 import {Drawer} from '@material-ui/core'
 
-
+//day03
 const Header = ({products}) => {
 
 
