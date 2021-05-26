@@ -12,7 +12,7 @@ const Product = ({id,title,price,description,category,image}) => {
     const [isPrime] = useState(Math.random() <0.5)
 
     return (
-        <div className="relative flex flex-col m-5 bg-white z-30 p-10" >
+        <div className="relative flex flex-col m-5 bg-white z-30 p-5 sm:p-10" >
             <Image src={image} width={200} height={200} objectFit="contain"/>
             <p>{title}</p>
             <div className="flex">

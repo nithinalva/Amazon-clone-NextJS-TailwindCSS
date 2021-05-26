@@ -29,6 +29,7 @@ module.exports = {
           DEFAULT: "#131921",
           light1:"#37475a"
         },
+        
       },
     },
   },

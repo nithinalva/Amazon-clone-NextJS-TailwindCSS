@@ -2,13 +2,23 @@ import Image from 'next/image'
 import {useState} from 'react'
 import { SearchIcon,MenuIcon,ShoppingCartIcon,LocationMarkerIcon,ChevronRightIcon} from '@heroicons/react/outline'
 import {UserIcon} from '@heroicons/react/solid'
-import {Drawer} from '@material-ui/core'
+import {Card, Drawer} from '@material-ui/core'
+import {signIn,useSession,signOut, signin} from 'next-auth/client'
+import {useRouter} from 'next/router'
+import { Autocomplete} from '@material-ui/lab'
+import TextField from '@material-ui/core/TextField';
 
 //day03
 const Header = ({products}) => {
 
 
+const [session]=useSession();       //session.user.name session.user.image
+
     const [open, setopen] = useState(false)
+
+    const [productsmatch, setproductsmatch] = useState([])
+
+    const router=useRouter();
 
 
     const sideBarHandler=()=>{
@@ -17,21 +27,44 @@ const Header = ({products}) => {
     }
     // const [products1, setproducts] = useState([{products}])
 
+    const username=(fullname)=>{
+
+        let name = fullname.split(' ');
+        return name[0]
+    }
+
+    const searchProducts=(text)=>{
+        if(!text){
+           return setproductsmatch([])
+        }
+        let matches=products.filter((prod)=>{
+
+            const regex= new RegExp(`${text}`,"gi");
+            return prod.title.match(regex) 
+
+        });
+
+       setproductsmatch(matches)
+
+    
+
+    }
+
 
     return (
-        <header className="w-full fixed z-50 top-0">
+        <header className="sticky top-0 z-50">
             {/* top nav */}
                 <div className=" flex items-center bg-amazon_blue p-1 flex-grow  flex-wrap  ">       
                     <MenuIcon className="inline h-10 mx-1 mb-3 text-white items-center sm:hidden" onClick={()=>sideBarHandler()}/>
                     <div className=" w w-24 sm:w-auto mt-2 flex items-center flex-grow sm:flex-grow-0  ">
                              <Image
-                            src="https://links.papareact.com/f90" width={150} height={50} objectFit="contain" className="cursor-pointer"/>
+                            src="https://links.papareact.com/f90" width={150} height={50} objectFit="contain" className="cursor-pointer" onClick={()=>router.push('/')}/>
                     
                     </div>
                   
 
 
-                    <div className="hidden md:inline-flex items-center p-4 link ">
+                    <div className="hidden sm:inline-flex items-center p-4 link ">
                  
                       <div>
                   
@@ -45,16 +78,46 @@ const Header = ({products}) => {
 
 
 
-                     <div className="flex-shrink-0 w-80 flex items-center flex-grow cursor-pointer h-10 rounded-md bg-yellow-400 hover:bg-yellow-500  order-last sm:order-none  ">    {/*  search-bar */}
+                     <div className=" relative flex-shrink-0 w-72 flex items-center flex-grow cursor-pointer h-10 rounded-md bg-yellow-400 hover:bg-yellow-500  order-last sm:order-none  ">    {/*  search-bar */}
+                   
+                    <input className="p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none px-4" type="text" onChange={(e)=>searchProducts(e.target.value)} list="productName"/> 
+{productsmatch.length>0? 
+                    
+                    <div className=" absolute top-11 bg-white  max-h-72 w-full overflow-y-scroll p-3">
+                    {productsmatch && productsmatch.map((item,index)=>(
+                        
+                       
+                        <div key={index} className=" text-tiny  flex-wrap  font-bold mx-auto my-4 hover:bg-gray-100 flex items-center">{item.title}  <p className="hidden sm:inline mx-1 text-sm text-gray-500 font-light">{item.category}</p></div>
+                      
+                         ))}
+                   <h1></h1>
+     
+                    </div>:null
 
-                    <input className="p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none px-4" type="text" />
+                    }
+
+             {/* <Autocomplete className="bg-white p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none px-4 outline-none" id="productName" options={products} onChange={(e)=>searchProducts(e.target.value)} getOptionLabel={(products) => products.title}  renderInput={(params) => <TextField {...params}/> } />  */}
+
+                    {/* <datalist id="productName">
+                
+                    {productsmatch && productsmatch.map((item,index)=>(
+                        
+                       
+                   <option key={index} className="text-gray-500 flex-wrap">{item.title}</option>
+                 
+                    ))}
+                    
+                  
+    </datalist> */}
+  
+                  
                     <SearchIcon className="h-12 p-4"/>
                    
                     </div>
 
-                     <div className="mx-6 flex items-center text-sm space-x-6  whitespace-nowrap">
-                             <div className= "link">       {/* right side of container*/}
-                                <p className="text-white md:text-sm leading-3">Hello, Nithin</p>
+                     <div className="mx-3 sm:mx-6 flex items-center text-sm space-x-0 sm:space-x-6  whitespace-nowrap">
+                             <div className= "link" onClick={signin}>       {/* right side of container*/}
+                                <p className="text-white md:text-sm leading-3">{session?`Hello,${username(session.user.name)}`: `Sign In`}</p>
                                 <p className="hidden sm:inline text-white font-bold md:text-sm">Accounts & Lists</p>
                             </div>
                             
@@ -66,10 +129,10 @@ const Header = ({products}) => {
 
 
 
-                            <div className= "relative flex items-center link">       {/* right side of container*/}
+                            <div className= "relative flex items-center link" onClick={()=>router.push('/checkout')}>       {/* right side of container*/}
                             <span className="absolute top-0 right-0 md:right-10 h-5 w-5 bg-yellow-400 text-center rounded-full text-black">0</span>
                                 <ShoppingCartIcon className="h-10 text-white"/>
-                                <p className=" hidden md:inline text-white font-bold  md:text-sm mt-2">Basket</p>
+                                <p className=" hidden md:inline text-white font-bold  md:text-sm mt-2"  >Basket</p>
                             </div>
                         
                         </div>
@@ -92,10 +155,10 @@ const Header = ({products}) => {
                         <p className="link hidden md:inline-flex">Kindle eBooks</p>
                         <p className="link hidden md:inline-flex">Electronics</p>
                         <p className="link hidden md:inline-flex">Home Improvement</p>
-                        <p className="link hidden md:inline-flex">Gift Ideas</p>
-                        <p className="link hidden md:inline-flex">Gift Cards</p>
-                        <p className="link hidden md:inline-flex">Sports,Fitness & Outdoors</p>
-                        <p className="link hidden md:inline-flex">AmazonBasics</p>
+                        <p className="link hidden xl:inline-flex">Gift Ideas</p>
+                        <p className="link hidden xl:inline-flex">Gift Cards</p>
+                        <p className="link hidden xl:inline-flex">Sports,Fitness & Outdoors</p>
+                        <p className="link hidden xl:inline-flex">AmazonBasics</p>
 
                 </div>
 
@@ -103,7 +166,7 @@ const Header = ({products}) => {
                 <div className=" bg-amazon_blue-light1 h-11 flex-shrink sm:hidden items-center  ">
                      <div className="flex items-center">
              
-                  <p className=" leading-3 text-sm text-white flex items-center mx-3  my-1"><LocationMarkerIcon className="text-white  h-6"/>Deliver to Nithin</p>
+                  <p className=" leading-3 text-sm text-white flex items-center mx-3  my-1"><LocationMarkerIcon className="text-white  h-6"/>{session?`Deliver to,${username(session.user.name)}`: `You are not Signed In`}</p>
                    <p className="text-white text-center  flex items-center text-sm my-2">
                    Bengaluru 560078</p>
                 </div>
@@ -121,7 +184,7 @@ const Header = ({products}) => {
                                         <div className=" w-72 sm:w-96 flex-col  ">
 
                                             <div className="flex bg-amazon_blue-light h-14 ">
-                                                <p className="text-white font-bold text-2xl flex items-center mx-8"><UserIcon className="h-6 mr-1"/> Hello, Nithin</p>
+                                                <p className="text-white font-bold text-2xl flex items-center mx-8"><UserIcon className="h-6 mr-1"/>{session?`Hello, ${username(session.user.name)}`: `Hello, User`}</p>
                                             </div>
                                             <div className="flex h-14">
                                                 <p className="font-bold flex  items-center mx-8 text-amazon_blue-light text-xl ">Trending</p>
@@ -258,7 +321,7 @@ const Header = ({products}) => {
                                             
 
                                             <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
-                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink">Sign out</p>
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink" onClick={() => signOut()}>Sign out</p>
                                             
                                             
                                             </div>
@@ -267,7 +330,11 @@ const Header = ({products}) => {
 
                                             </div>
                 </Drawer>
+
+
+              
         </header>
+        
     )
 }
 

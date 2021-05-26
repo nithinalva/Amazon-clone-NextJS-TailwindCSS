@@ -7,7 +7,7 @@ import Productsfeed from '../src/components/Productsfeed';
 
 export default function Home({products}) {
   return (
-<div className="bg-gray-100" >
+<div className="bg-gray-100">
   <head>
     <title>
       AMAZON 2.0
@@ -16,7 +16,7 @@ export default function Home({products}) {
   </head>
   {/* <h1>hey nithin alva</h1> */}
   <Header products={products}/>
-    <main className="max-w-screen-2xl my-44 md:my-28 mx-auto">
+    <main className="max-w-screen-2xl mx-auto ">
 
 
 
