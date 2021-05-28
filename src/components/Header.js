@@ -83,11 +83,11 @@ const [session]=useSession();       //session.user.name session.user.image
                     <input className="p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none px-4" type="text" onChange={(e)=>searchProducts(e.target.value)} list="productName"/> 
 {productsmatch.length>0? 
                     
-                    <div className=" absolute top-11 bg-white  max-h-72 w-full overflow-y-scroll p-3">
+                    <div className=" absolute top-11 bg-white  max-h-72 w-full overflow-y-scroll p-3 shadow-xl">
                     {productsmatch && productsmatch.map((item,index)=>(
                         
                        
-                        <div key={index} className=" text-tiny  flex-wrap  font-bold mx-auto my-4 hover:bg-gray-100 flex items-center">{item.title}  <p className="hidden sm:inline mx-1 text-sm text-gray-500 font-light">{item.category}</p></div>
+                        <div key={index} className=" text-tiny  flex-wrap  font-bold mx-auto my-4 hover:bg-gray-100 flex items-center border-b ">{item.title}  <p className="hidden sm:inline mx-1 text-sm text-gray-500 font-light">{item.category}</p></div>
                       
                          ))}
                    <h1></h1>

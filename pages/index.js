@@ -4,8 +4,11 @@ import Header from '../src/components/Header'
 import styles from '../styles/Home.module.css'
 import Banner from '../src/components/Banner';
 import Productsfeed from '../src/components/Productsfeed';
+import {useRouter} from 'next/router'
+import Checkout from './checkout';
 
 export default function Home({products}) {
+  
   return (
 <div className="bg-gray-100">
   <head>
@@ -16,7 +19,7 @@ export default function Home({products}) {
   </head>
   {/* <h1>hey nithin alva</h1> */}
   <Header products={products}/>
-    <main className="max-w-screen-2xl mx-auto ">
+    <main className="max-w-screen-2xl mx-auto " >
 
 
 
@@ -46,6 +49,7 @@ return{
   props:{
     products
   }
+ 
 }
 
 }
