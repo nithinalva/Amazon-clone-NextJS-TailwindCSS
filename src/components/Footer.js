@@ -1,4 +1,15 @@
+import {signin,useSession} from 'next-auth/client'
+
 const Footer = () => {
+    const [session]=useSession();
+
+    const username=(fullname)=>{
+
+        let name = fullname.split(' ');
+        return name[0]
+    }
+
+
     return (
         <div className="">
                 <div className="bg-amazon_blue-light1 flex items-center h-10 flex-grow">
@@ -8,7 +19,7 @@ const Footer = () => {
                 <div className="bg-amazon_blue-light flex  border-b flex-grow p-3">
                         <div className="flex  space-x-10 mx-auto text-lg   my-4 ">
 
-                            <div className="text-white   ">
+                            <div className="text-white hidden sm:inline   ">
                                 <p className="font-bold  link">Get to Know us</p>
                                 <p className=" link">About us</p>
                                 <p className="link">Career</p>
@@ -18,7 +29,7 @@ const Footer = () => {
 
                             </div>
  
-                            <div className="text-white  ">
+                            <div className="text-white hidden sm:inline  ">
                                 <p className="font-bold">Connect with us</p>
                                 <p className="link">Facebook</p>
                                 <p className="link">Twitter</p>
@@ -31,7 +42,7 @@ const Footer = () => {
 
 
                             
-                            <div className="text-white   ">
+                            <div className="text-white hidden sm:inline   ">
                                 <p className="font-bold">Make money with us</p>
                                 <p className="link">Sell on Amazon</p>
                                 <p className="link">Sell under Amazzon Accelerator</p>
@@ -44,7 +55,7 @@ const Footer = () => {
 
                             </div>
 
-                            <div className="text-white   ">
+                            <div className="text-white hidden sm:inline   ">
                                 <p className="font-bold">Let us Help You</p>
                                 <p className="link">Your Account</p>
                                 <p className="link">Returns Centre</p>
@@ -57,8 +68,25 @@ const Footer = () => {
 
                             </div>
 
+                                <div className="text-sm inline sm:hidden text-white my-2">
+                                <p className="link font-bold" onClick={signin}> {session? `${username(session.user.name)}'s Amazon.in`:"Sign In User "}</p>
+                                <p className="link">Amazon Pay</p>
+                                <p className="link">Wish List</p>
+                                <p className="link">Your Account</p>
+                                <p className="link">Customer Service</p>
+                                </div>
+
+                                <div className="text-sm inline sm:hidden my-2  text-white">
+
+                                <p className="link">Your Orders</p>
+                                <p className="link">Amazon App Download</p>
+                                <p className="link">Find a Wish List</p>
+                                <p className="link">Sell</p>
+                                <p className="link">Help</p>
+                                </div>
 
                         </div> {/* PC Responsive*/}
+                        
 
                 </div>
 
