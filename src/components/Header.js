@@ -7,6 +7,9 @@ import {signIn,useSession,signOut, signin} from 'next-auth/client'
 import {useRouter} from 'next/router'
 import { Autocomplete} from '@material-ui/lab'
 import TextField from '@material-ui/core/TextField';
+import { selectItems } from '../slices/basketSlice'
+import {useSelector} from 'react-redux'
+import Link from 'next/link'
 
 //day03
 const Header = ({products}) => {
@@ -19,6 +22,11 @@ const [session]=useSession();       //session.user.name session.user.image
     const [productsmatch, setproductsmatch] = useState([])
 
     const router=useRouter();
+
+
+    const items = useSelector(selectItems);
+
+
 
 
     const sideBarHandler=()=>{
@@ -39,7 +47,7 @@ const [session]=useSession();       //session.user.name session.user.image
         }
         let matches=products.filter((prod)=>{
 
-            const regex= new RegExp(`${text}`,"gi");
+            const regex= new RegExp(`${text}`,"g");
             return prod.title.match(regex) 
 
         });
@@ -86,9 +94,9 @@ const [session]=useSession();       //session.user.name session.user.image
                     <div className=" absolute top-11 bg-white  max-h-72 w-full overflow-y-scroll p-3 shadow-xl">
                     {productsmatch && productsmatch.map((item,index)=>(
                         
-                       
-                        <div key={index} className=" text-tiny  flex-wrap  font-bold mx-auto my-4 hover:bg-gray-100 flex items-center border-b ">{item.title}  <p className="hidden sm:inline mx-1 text-sm text-gray-500 font-light">{item.category}</p></div>
-                      
+                    
+                        <div key={index} className=" text-tiny  flex-wrap  font-bold mx-auto my-4 hover:bg-gray-100 flex items-center border-b "  onClick={() => router.push(`/product/${item.id}`)}>{item.title}  <p className="hidden sm:inline mx-1 text-sm text-gray-500 font-light">{item.category}</p></div>
+                    
                          ))}
                    <h1></h1>
      
@@ -130,7 +138,7 @@ const [session]=useSession();       //session.user.name session.user.image
 
 
                             <div className= "relative flex items-center link" onClick={()=>router.push('/checkout')}>       {/* right side of container*/}
-                            <span className="absolute top-0 right-0 md:right-10 h-5 w-5 bg-yellow-400 text-center rounded-full text-black">0</span>
+                            <span className="absolute top-0 right-0 md:right-10 h-5 w-5 bg-yellow-400 text-center rounded-full text-black">{items.length}</span>
                                 <ShoppingCartIcon className="h-10 text-white"/>
                                 <p className=" hidden md:inline text-white font-bold  md:text-sm mt-2"  >Basket</p>
                             </div>

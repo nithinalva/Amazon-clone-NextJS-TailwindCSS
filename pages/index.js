@@ -6,6 +6,7 @@ import Banner from '../src/components/Banner';
 import Productsfeed from '../src/components/Productsfeed';
 import {useRouter} from 'next/router'
 import Checkout from './checkout';
+import Footer from '../src/components/Footer';
 
 export default function Home({products}) {
   
@@ -15,6 +16,7 @@ export default function Home({products}) {
     <title>
       AMAZON 2.0
     </title>
+  
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
   </head>
   {/* <h1>hey nithin alva</h1> */}
@@ -28,7 +30,7 @@ export default function Home({products}) {
 
 
     </main>
-
+    <Footer/>
 
 
 
