@@ -4,19 +4,24 @@ import Header from '../src/components/Header'
 import styles from '../styles/Home.module.css'
 import Banner from '../src/components/Banner';
 import Productsfeed from '../src/components/Productsfeed';
+import {useRouter} from 'next/router'
+import Checkout from './checkout';
+import Footer from '../src/components/Footer';
 
 export default function Home({products}) {
+  
   return (
 <div className="bg-gray-100">
   <head>
     <title>
       AMAZON 2.0
     </title>
+  
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
   </head>
   {/* <h1>hey nithin alva</h1> */}
   <Header products={products}/>
-    <main className="max-w-screen-2xl mx-auto ">
+    <main className="max-w-screen-2xl mx-auto " >
 
 
 
@@ -25,7 +30,7 @@ export default function Home({products}) {
 
 
     </main>
-
+    <Footer/>
 
 
 
@@ -46,6 +51,7 @@ return{
   props:{
     products
   }
+ 
 }
 
 }
