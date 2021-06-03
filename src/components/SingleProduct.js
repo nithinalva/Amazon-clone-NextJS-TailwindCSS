@@ -48,7 +48,7 @@ export const SingleProduct = ({id,title,image,description,price,rating,category,
         </div>
             
                {/*Image */}
-            <div className="col-span-5 sm:col-span-2 border-gray-400  outline-black p-10 sm:p-1 mx-auto ">
+            <div className="col-span-5 sm:col-span-2 border-gray-400 border rounded-md  p-10 sm:p-1 mx-auto ">
             <Image src={image} width={580} height={400} objectFit="contain" />
             </div>
            
