@@ -59,6 +59,11 @@ const [session]=useSession();       //session.user.name session.user.image
     }
 
 
+
+    const resetInputField = () => {
+       searchProducts("");
+      };
+
     return (
         <header className="sticky top-0 z-50">
             {/* top nav */}
@@ -95,10 +100,10 @@ const [session]=useSession();       //session.user.name session.user.image
                     {productsmatch && productsmatch.map((item,index)=>(
                         
                     
-                        <div key={index} className=" text-tiny  flex-wrap  font-bold mx-auto my-4 hover:bg-gray-100 flex items-center border-b "  onClick={() => router.push(`/product/${item.id}`)}>{item.title}  <p className="hidden sm:inline mx-1 text-sm text-gray-500 font-light">{item.category}</p></div>
+                        <div key={index} className=" text-tiny  flex-wrap  font-bold mx-auto my-4 hover:bg-gray-100 flex items-center border-b "  onClick={() => {router.push(`/product/${item.id}`); resetInputField();}}>{item.title}  <p className="hidden sm:inline mx-1 text-sm text-gray-500 font-light">{item.category}</p></div>
                     
                          ))}
-                   <h1></h1>
+                   <h1></h1> 
      
                     </div>:null
 

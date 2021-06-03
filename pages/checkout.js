@@ -7,14 +7,43 @@ import CheckoutProduct from '../src/components/CheckoutProduct';
 import {useSession} from 'next-auth/client'
 import Footer from '../src/components/Footer';
 import CurrencyFormat from 'react-currency-format';
+import {loadStripe} from '@stripe/stripe-js'
+import axios from 'axios';
+const stripePromise=loadStripe(process.env.stripe_public_key)
+
 
 const Checkout = ({products}) => {
 
+  
 
 //pulling items from the redux stores
 const items = useSelector(selectItems)
 const totalPrice=useSelector(selectItemPrice)
 const [session]=useSession();
+
+
+const createCheckoutSession=async () => {
+  const stripe= await stripePromise;
+  //call the bACKEND TO CREATE TO CREATE A CHECKOUT SESSION
+
+  const checkoutSession=await axios.post('/api/create-checkout-session',
+  //request
+  {
+    items:items,
+    email:session.user.email,
+  
+    
+  })
+
+const result=await stripe.redirectToCheckout({
+
+    sessionId:checkoutSession.data.id,
+})
+
+if(result.error){ alert(result.error.message)}
+
+
+}
 
     return (
         <>
@@ -55,7 +84,7 @@ const [session]=useSession();
                     <span className="font-bold"></span>
                     <CurrencyFormat value={totalPrice} displayType={'text'} thousandSeparator={true} prefix={'$'} className="font-bold text-lg"  />
                     </h2>
-                    <button disabled={!session} className={`button whitespace-nowrap  mt-2 ${!session && `from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed hover:bg-gray-300 `}`}>
+                    <button disabled={!session}  role="link" className={`button whitespace-nowrap  mt-2 ${!session && `from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed hover:bg-gray-300 `}`} onClick={createCheckoutSession}>
                     {!session? "Sign in to checkout":"Proceed to checkout"}
                     </button>
                   </>

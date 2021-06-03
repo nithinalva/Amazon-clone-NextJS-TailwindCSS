@@ -57,7 +57,7 @@ const [session]=useSession();
 
         {/*actualproduct Container */}
 
-  
+    {items.length>0 &&
     <div className="bg-white flex flex-col p-10">
       {/* <p>hello</p> */}
       {items.length>0 &&
@@ -73,7 +73,7 @@ const [session]=useSession();
         </button>
         
         </>}
-    </div>
+    </div>}
   
    </main>
 
