@@ -41,13 +41,13 @@ const removeItemFromBasket=()=>{
                 <Image src={image} height={200} width={200}  objectFit="contain"/>
                 {/* Middle layer*/}
               <div className="col-span-3 mx-10">
-                <p className="font-bold">{title}</p>
+                <p className="line-clamp-2 text-xs sm:text-lg  font-bold ">{title}</p>
                      <div className="flex">
                 {Array(rating).fill().map(( _,i)=>(
                     <StarIcon className="h-5 text-yellow-500"/>
                 ))}
                     </div>
-                    <p className="line-clamp-3 my-2 text-xs text-gray-600">{description}</p>
+                    <p className="line-clamp-3 my-2 text-xs text-gray-600 ">{description}</p>
                              <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} className="font-bold text-xl"  />
                     {isPrime && 
              <div className="flex items-center mx-2 ">
@@ -58,8 +58,8 @@ const removeItemFromBasket=()=>{
               </div>
                  {/* 3rd layer*/}
             <div className="flex flex-col space-y-2 my-auto justify-self-end">
-                <button className="button">Add to Basket</button>
-                <button onClick={()=>removeItemFromBasket()} className="button">Remove from Basket</button>
+             
+                <button onClick={()=>removeItemFromBasket()} className="button ">Remove from Basket</button>
             </div>
             
             

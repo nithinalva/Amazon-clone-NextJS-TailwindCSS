@@ -29,7 +29,7 @@ const [session]=useSession();
 
     const SingleProduct=globalProducts.filter((item)=>(item.id==pid))
     setproduct(SingleProduct)
- 
+    
    
     
   },[pid])

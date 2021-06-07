@@ -8,8 +8,13 @@ import {useRouter} from 'next/router'
 import Checkout from './checkout';
 import Footer from '../src/components/Footer';
 
-export default function Home({products}) {
-  
+
+
+export default function Home({products,location}) {
+
+
+ console.log(location)
+ 
   return (
 <div className="bg-gray-100">
   <head>
@@ -21,6 +26,7 @@ export default function Home({products}) {
   </head>
   {/* <h1>hey nithin alva</h1> */}
   <Header products={products}/>
+
     <main className="max-w-screen-2xl mx-auto " >
 
 
@@ -46,12 +52,21 @@ export async function  getServerSideProps(conext){
   const products=await fetch('https://fakestoreapi.com/products')
                       .then(res=>res.json())
 
+
+           const location= await fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?')   
+            .then(res=>res.json())
+
+
 return{
 
   props:{
-    products
+    products,
+    location
+  
   }
  
 }
+
+
 
 }

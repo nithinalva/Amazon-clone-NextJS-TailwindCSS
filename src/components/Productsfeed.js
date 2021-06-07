@@ -14,7 +14,7 @@ const Productsfeed = ({products}) => {
             )
         )}
 
-        <img className="md:col-span-full mx-auto" src="https://links.papareact.com/dyz"/>
+        <img className="w-auto   mx-auto md:col-span-full  " src="https://links.papareact.com/dyz"/>
 
         <div className="md:col-span-2">
         {products.slice(4,5).map(({id,title,price,description,category,image})=>(<Product 

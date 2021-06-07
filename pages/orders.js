@@ -4,14 +4,22 @@ import firebaseDb from "../firebase";
 import moment from "moment";
 import { Order } from "../src/components/Order";
 import Footer from '../src/components/Footer'
-
+import {useSelector} from 'react-redux'
+import { selectProducts} from '../src/slices/productSlice';
+import {useEffect} from 'react'
 const orders = ({orders}) => {
- 
+    
+ useEffect(() => {
+    
+ }, [{orders}])
+
     const [session]=useSession()
+
+    const globalProducts=useSelector(selectProducts)
 
     return (
         <div className="bg-gray-200  h-full">
-            <Header/>
+            <Header products={globalProducts}/>
             <main className="max-w-screen-lg mx-auto p-10">
 
                 <div className="bg-white p-2">

@@ -1,5 +1,6 @@
 import Image from 'next/image'
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
+
 import { SearchIcon,MenuIcon,ShoppingCartIcon,LocationMarkerIcon,ChevronRightIcon} from '@heroicons/react/outline'
 import {UserIcon} from '@heroicons/react/solid'
 import {Card, Drawer} from '@material-ui/core'
@@ -10,10 +11,24 @@ import TextField from '@material-ui/core/TextField';
 import { selectItems } from '../slices/basketSlice'
 import {useSelector} from 'react-redux'
 import Link from 'next/link'
-
+import axios from 'axios'
+import { spacing } from '@material-ui/system';
+import CircularProgress from '@material-ui/core/CircularProgress';
 //day03
 const Header = ({products}) => {
 
+    const theme = {
+        spacing: [0, 2, 3, 5, 8],
+      }
+
+
+    const [lat, setLat] = useState(null);
+    const [lng, setLng] = useState(null);
+    const [status, setStatus] = useState(null);
+    const [loading,setloading]=useState(false)
+    const [Address,setAddress]=useState(JSON.parse(window.sessionStorage.getItem("loc")))
+
+   
 
 const [session]=useSession();       //session.user.name session.user.image
 
@@ -64,6 +79,70 @@ const [session]=useSession();       //session.user.name session.user.image
        searchProducts("");
       };
 
+
+      const getLocation = () => {
+        if (!navigator.geolocation) {
+          return setStatus('Geolocation is not supported by your browser');
+        } 
+          setStatus('Locating...');
+          navigator.geolocation.getCurrentPosition((position) => {
+            setStatus(null);
+            setLat(position.coords.latitude);
+            setLng(position.coords.longitude);
+          }, () => {
+            setStatus('Unable to retrieve your location');
+          });
+       
+        
+    
+    
+    
+    }
+
+    useEffect( () => {
+        
+        // if(!Address===null){
+            
+        // return setloading(true)
+        // }
+
+        
+        const fetchData= async()=>{
+    
+          await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`,{
+
+          params:{
+              lat:lat,
+              lon:lng
+          }
+          })
+          .then(response => { 
+            // console.log(response.data.address.city,response.data.address.postcode)
+
+            setAddress({
+                city:response.data.address.city,
+                postcode:response.data.address.postcode
+            })
+       
+            window.sessionStorage.setItem("loc",JSON.stringify(Address))
+        
+        })
+        .catch(error => {
+            // console.log(error)
+            console.log( error.response.request._response );
+        });
+        setloading(true)
+    
+    }
+    // setAddress(JSON.parse(window.sessionStorage.getItem("loc")))
+    fetchData()
+        
+    //     console.log(loading)
+    // console.log(Address)
+    }, [getLocation])
+    
+ 
+
     return (
         <header className="sticky top-0 z-50">
             {/* top nav */}
@@ -76,19 +155,22 @@ const [session]=useSession();       //session.user.name session.user.image
                     </div>
                   
 
-
+                    {session && 
                     <div className="hidden sm:inline-flex items-center p-4 link ">
                  
                       <div>
                   
-                       <p className=" leading-3 text-tiny text-white flex items-center mx-6 ">Deliver to Nithin</p>
-                        <p className="text-white text-sm font-bold flex items-center ">
-                        <LocationMarkerIcon className="text-white  h-6"/>Bengaluru 560078</p>
+                       <p className=" leading-3 text-tiny text-white flex items-center mx-6 ">Deliver to {session.user.name}</p>
+                       {Address===null?<p className="text-white text-lg font-bold flex items-center mx-6 link " onClick={()=>getLocation()}>Add location</p>
+
+                       :loading?
+                       <p className="text-white text-sm font-bold flex items-center ">
+                      <LocationMarkerIcon className="text-white  h-6"/>{Address.city} {Address.postcode}</p>:<p className="  italic text-white mx-6 tx-xs items-center flex space-x-3  "> <CircularProgress color="inherit" size="1rem" m={8} ></CircularProgress>  ...Fetching Location</p> }
                      </div>
 
                     </div>
 
-
+                    }
 
 
                      <div className=" relative flex-shrink-0 w-72 flex items-center flex-grow cursor-pointer h-10 rounded-md bg-yellow-400 hover:bg-yellow-500  order-last sm:order-none  ">    {/*  search-bar */}
@@ -175,20 +257,24 @@ const [session]=useSession();       //session.user.name session.user.image
 
                 </div>
 
+                {session &&
+                <div className=" bg-amazon_blue-light1 h-11 flex-shrink sm:hidden items-center hover:bg-amazon_blue-light ">
+                 
+                     <div className="flex items-center mx-2 ">
+                     {Address===null?
+                     <p className=" leading-3 text-sm text-white flex items-center mx-3  my-4 link " onClick={()=>getLocation()} >Add your current location?</p>:loading?
+                   <p className="text-white text-center  flex items-center text-sm my-2 truncate"><LocationMarkerIcon className="text-white  h-6"/> Deliver to {username(session.user.name)}-{Address.city} {Address.postcode}</p>
+                   :<p className="leading-3 text-sm text-white flex items-center mx-2  my-3 italic"><CircularProgress color="inherit" size="1rem" m={8} ></CircularProgress>...Fetching your Live Location</p>
+
+                     }
+                </div>
                 
-                <div className=" bg-amazon_blue-light1 h-11 flex-shrink sm:hidden items-center  ">
-                     <div className="flex items-center">
-             
-                  <p className=" leading-3 text-sm text-white flex items-center mx-3  my-1"><LocationMarkerIcon className="text-white  h-6"/>{session?`Deliver to,${username(session.user.name)}`: `You are not Signed In`}</p>
-                   <p className="text-white text-center  flex items-center text-sm my-2">
-                   Bengaluru 560078</p>
-                </div>
-
-          
+                
+                 
 
 
                 </div>
-
+                }
 
 
 
@@ -334,7 +420,7 @@ const [session]=useSession();       //session.user.name session.user.image
                                             
 
                                             <div className="flex h-10 items-center hover:bg-gray-200  cursor-pointer">
-                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink" onClick={() => signOut()}>Sign out</p>
+                                                <p className="text-amazon_blue-light mx-8 flex items-center w-full flex-shrink" onClick={() =>   {signOut();localStorage.clear();}}>Sign out</p>
                                             
                                             
                                             </div>
