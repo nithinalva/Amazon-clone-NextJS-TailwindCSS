@@ -45,13 +45,15 @@ if(result.error){ alert(result.error.message)}
 
 }
 
+
+
     return (
         <>
 
-          <div className="bg-gray-100">
+          <div className="bg-gray-100 h-full">
             <Header products={products}/>
             {/* leftside */}
-          <main className="lg:flex max-w-screen-2xl mx-auto">
+          <main className="lg:flex max-w-screen-2xl mx-auto h-full   flex-grow">
 
                   <div className="flex-grow m-5 shadow-sm">
                          <Image src="https://links.papareact.com/ikj" width={1020} height={250} objectFit="contain"/>
@@ -77,8 +79,9 @@ if(result.error){ alert(result.error.message)}
 
 
               {/* righside */}
+                {items.length>0 && 
               <div className="flex flex-col bg-white p-10">  
-                  {items.length>0 && 
+                
                   <>
                     <h2 className="whitespace-nowrap font-bold text-lg border-b">Subtotal ({items.length} items): { " "}
                     <span className="font-bold"></span>
@@ -89,13 +92,14 @@ if(result.error){ alert(result.error.message)}
                     </button>
                   </>
                   
-                  }
+                  
             </div>
-
+}
 
         </main>
-        <Footer/>
+     
     </div>
+       <Footer/>
         </>
     )
 

@@ -22,6 +22,7 @@ const endPointSecrets=process.env.STRIPE_SIGNING_SECRET
 
 //storing into firebase
 const fullfillOrder=async(session)=>{
+   
     console.log('fullfilllin order',session)
 
     return app.firestore().collection('user').doc(session.metadata.email).collection("orders").doc(session.id).set({
@@ -29,10 +30,12 @@ const fullfillOrder=async(session)=>{
         amount_shipping:session.total_details.amount_shipping/100,
         images:JSON.parse(session.metadata.images),
         timestamps:admin.firestore.FieldValue.serverTimestamp(),//time of upload
+    
 
     }).then(()=>{
 
         console.log(`Success:order ${session.id} has been added to DB`)
+       
     }).catch((err)=>res.status(400).send(`webhook_error: ${err.message}`))
         
 }
@@ -71,6 +74,6 @@ export const config={
 
     api:{
         bodyParser:false,
-        externalResolver:true
-    }
-}
+        externalResolver:true,
+    },
+} 
