@@ -123,7 +123,7 @@ const [session]=useSession();       //session.user.name session.user.image
                 city:response.data.address.city,
                 postcode:response.data.address.postcode
             })
-       
+            // setloading(true)
             window.sessionStorage.setItem("loc",JSON.stringify(Address))
         
         })
@@ -136,6 +136,11 @@ const [session]=useSession();       //session.user.name session.user.image
     }
     // setAddress(JSON.parse(window.sessionStorage.getItem("loc")))
     fetchData()
+
+    if(Address!==null){
+        setloading(true)
+        // console.log("not empty")
+    }
         
         if(Address!==null){
         setloading(true)
