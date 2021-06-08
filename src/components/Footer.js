@@ -1,18 +1,37 @@
 import {signin,useSession} from 'next-auth/client'
-
+import React, { useEffect, useState } from "react";
 const Footer = () => {
     const [session]=useSession();
-
+    const [isVisible, setIsVisible] = useState(false);
     const username=(fullname)=>{
 
         let name = fullname.split(' ');
         return name[0]
     }
 
-
+    const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      };
+      useEffect(() => {
+        // Button is displayed after scrolling for 500 pixels
+        const toggleVisibility = () => {
+          if (window.pageYOffset > 500) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        };
+    
+        window.addEventListener("scroll", toggleVisibility);
+    
+        return () => window.removeEventListener("scroll", toggleVisibility);
+      }, []);
     return (
         <div className="">
-                <div className="bg-amazon_blue-light1 flex items-center h-10 flex-grow">
+                <div className="bg-amazon_blue-light1 flex items-center h-10 flex-grow hover:bg-amazon_blue-light cursor-pointer" onClick={scrollToTop}>
                <p className="mx-auto text-white">Back to top</p>
                 </div>
 

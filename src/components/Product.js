@@ -86,7 +86,7 @@ useEffect(() => {
                            
             </div>
              {isPrime && 
-             <div className="flex items-center mx-2 -mt-7">
+             <div className="flex items-center mx-2 np">
                  <img src="https://links.papareact.com/fdw" alt="" objectFit="contain" className="w-12 "/>
                  <p className="text-xs text-gray-500">FREE Next-day Delivery</p>
             </div>} 
