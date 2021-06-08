@@ -5,11 +5,20 @@ import { StarIcon } from '@heroicons/react/solid';
 import {addToBasket} from '../slices/basketSlice'
 import {useDispatch} from 'react-redux'
 import CurrencyFormat from 'react-currency-format';
-
+import {useEffect,useState} from 'react'
+import axios from 'axios';
+import {useSession} from 'next-auth/client'
+import {loadStripe} from '@stripe/stripe-js'
+const stripePromise=loadStripe(process.env.stripe_public_key)
 export const SingleProduct = ({id,title,image,description,price,rating,category,isPrime}) => {
 
-    const dispatch = useDispatch();
 
+    const [session]=useSession();
+
+    const [prod,setprod]=useState()
+
+    const dispatch = useDispatch();
+    
 
     const addItemsToBasket=()=>{
         //pushing item into store
@@ -30,6 +39,47 @@ export const SingleProduct = ({id,title,image,description,price,rating,category,
         
             }
 
+            useEffect(() => {
+                const product={
+                    id,
+                    title,
+                    price,
+                    description,
+                    category,
+                    image,
+                    rating,
+                    isPrime
+                
+                };
+                setprod(product)
+
+            }, [])
+    
+
+            const createCheckoutSession=async () => {
+                const stripe= await stripePromise;
+                //call the bACKEND TO CREATE TO CREATE A CHECKOUT SESSION
+              
+                const checkoutSession=await axios.post('/api/create-checkout-session',
+                //request
+                {
+                  items:[prod],
+                  email:session.user.email,
+                
+                  
+                })
+              
+              const result=await stripe.redirectToCheckout({
+              
+                  sessionId:checkoutSession.data.id,
+              })
+              
+              if(result.error){ alert(result.error.message)}
+              
+              
+              }
+              
+              
 
     return (
         <div className="my-2 sm:my-28 mx-6 sm:mx-2 flex-grow bg-white shadow-sm grid grid-cols-5 p-3">
@@ -72,9 +122,9 @@ export const SingleProduct = ({id,title,image,description,price,rating,category,
                  <p className="text-xs text-gray-500">FREE Next-day Delivery</p>
             </div>} 
                         </div>
-                            <div className="">
-
-                            <button className="button text-sm sm:text-xl w-full sm:w-52 " onClick={()=>addItemsToBasket()} >Add to Basket</button>
+                            <div className="space-x-0 sm:space-x-2 ">
+                            <button className="button text-sm sm:text-lg w-full sm:w-52 " onClick={createCheckoutSession}>Buy Now</button>
+                            <button className="button text-sm sm:text-lg w-full  sm:w-52 mt-2   " onClick={()=>addItemsToBasket()} >Add to Basket</button>
                              </div>
         
       

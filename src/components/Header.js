@@ -123,7 +123,7 @@ const [session]=useSession();       //session.user.name session.user.image
                 city:response.data.address.city,
                 postcode:response.data.address.postcode
             })
-       
+            // setloading(true)
             window.sessionStorage.setItem("loc",JSON.stringify(Address))
         
         })
@@ -131,11 +131,16 @@ const [session]=useSession();       //session.user.name session.user.image
             // console.log(error)
             console.log( error.response.request._response );
         });
-        setloading(true)
+      
     
     }
     // setAddress(JSON.parse(window.sessionStorage.getItem("loc")))
     fetchData()
+
+    if(Address!==null){
+        setloading(true)
+        // console.log("not empty")
+    }
         
     //     console.log(loading)
     // console.log(Address)

@@ -5,6 +5,7 @@ import {addToBasket} from '../slices/basketSlice'
 import {addProducts} from '../slices/productSlice'
 import {useDispatch} from 'react-redux'
 import NumberFormat from 'react-number-format';
+import CurrencyFormat from 'react-currency-format';
 import Link from 'next/link'
 
 const Product = ({id,title,price,description,category,image}) => {
@@ -79,11 +80,13 @@ useEffect(() => {
         
             <div>
                 
-            <NumberFormat  value={price} isNumericString={true} prefix={'$'} className="mb-5" />
-          
+            {/* <NumberFormat  value={price} isNumericString={true} prefix={'$'} className="mb-5" />
+           */}
+           <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} className="text-lg"  />
+                           
             </div>
              {isPrime && 
-             <div className="flex items-center mx-2 -mt-5">
+             <div className="flex items-center mx-2 -mt-7">
                  <img src="https://links.papareact.com/fdw" alt="" objectFit="contain" className="w-12 "/>
                  <p className="text-xs text-gray-500">FREE Next-day Delivery</p>
             </div>} 
