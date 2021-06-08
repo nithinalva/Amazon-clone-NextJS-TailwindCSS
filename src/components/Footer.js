@@ -1,6 +1,9 @@
 import {signin,useSession} from 'next-auth/client'
 import React, { useEffect, useState } from "react";
+import {useRouter} from 'next/router'
 const Footer = () => {
+
+    const router=useRouter()
     const [session]=useSession();
     const [isVisible, setIsVisible] = useState(false);
     const username=(fullname)=>{
@@ -88,7 +91,7 @@ const Footer = () => {
                             </div>
 
                                 <div className="text-sm inline sm:hidden text-white my-2">
-                                <p className="link font-bold" onClick={signin}> {session? `${username(session.user.name)}'s Amazon.in`:"Sign In User "}</p>
+                                <p className="link font-bold" onClick={session?()=>router.push('/'):signin}> {session? `${username(session.user.name)}'s Amazon.in`:"Sign In User "}</p>
                                 <p className="link">Amazon Pay</p>
                                 <p className="link">Wish List</p>
                                 <p className="link">Your Account</p>
