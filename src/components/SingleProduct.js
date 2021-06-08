@@ -7,8 +7,9 @@ import {useDispatch} from 'react-redux'
 import CurrencyFormat from 'react-currency-format';
 import {useEffect,useState} from 'react'
 import axios from 'axios';
-import {useSession} from 'next-auth/client'
+import {useSession,signin} from 'next-auth/client'
 import {loadStripe} from '@stripe/stripe-js'
+
 const stripePromise=loadStripe(process.env.stripe_public_key)
 export const SingleProduct = ({id,title,image,description,price,rating,category,isPrime}) => {
 
@@ -123,7 +124,7 @@ export const SingleProduct = ({id,title,image,description,price,rating,category,
             </div>} 
                         </div>
                             <div className="space-x-0 sm:space-x-2 ">
-                            <button className="button text-sm sm:text-lg w-full sm:w-52 " onClick={createCheckoutSession}>Buy Now</button>
+                            <button className="button text-sm sm:text-lg w-full sm:w-52 " onClick={session?createCheckoutSession:signin}>Buy Now</button>
                             <button className="button text-sm sm:text-lg w-full  sm:w-52 mt-2   " onClick={()=>addItemsToBasket()} >Add to Basket</button>
                              </div>
         
