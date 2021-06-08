@@ -3,7 +3,7 @@ import Footer from "../src/components/Footer";
 import Header from "../src/components/Header";
 import {useRouter} from 'next/router';
 import {useEffect} from 'react'
-
+import Confetti from 'react-confetti'
 const success = () => {
   
 
@@ -15,6 +15,7 @@ const success = () => {
         <>
         <div className="bg-gray-100 h-screen">
            <Header/>
+           <Confetti recycle={false} numberOfPieces={400}/>
            <main className="max-w-screen-lg mx-auto ">
                 <div className="bg-white flex flex-col p-10">
                 
