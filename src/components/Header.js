@@ -131,7 +131,7 @@ const [session]=useSession();       //session.user.name session.user.image
             // console.log(error)
             console.log( error.response.request._response );
         });
-      
+
     
     }
     // setAddress(JSON.parse(window.sessionStorage.getItem("loc")))
@@ -142,6 +142,10 @@ const [session]=useSession();       //session.user.name session.user.image
         // console.log("not empty")
     }
         
+        if(Address!==null){
+        setloading(true)
+        // console.log("not empty")
+    }
     //     console.log(loading)
     // console.log(Address)
     }, [getLocation])
