@@ -1,16 +1,20 @@
 import { StarIcon } from '@heroicons/react/solid';
 import Image from 'next/image'
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {addToBasket} from '../slices/basketSlice'
 import {addProducts} from '../slices/productSlice'
 import {useDispatch} from 'react-redux'
 import NumberFormat from 'react-number-format';
 import CurrencyFormat from 'react-currency-format';
 import Link from 'next/link'
+import { currencyContext, currencyConverterToINR } from '../Currency';
 
 const Product = ({id,title,price,description,category,image}) => {
   
     //1. dispatching it to action(redux)
+
+    const curr=useContext(currencyContext)
+
          const dispatch = useDispatch();
 
     const [rating] = useState(Math.floor(Math.random() * 5-1 + 1))
@@ -19,7 +23,7 @@ const Product = ({id,title,price,description,category,image}) => {
 
     const addItemsToBasket=()=>{
 //pushing item into store
-
+        
     const product={
     id,
     title,
@@ -63,7 +67,7 @@ useEffect(() => {
     
 },[])
 
-
+console.log(curr(122))
     return (
        
         <div className="relative flex flex-col m-5 bg-white z-30 p-5 sm:p-10"  >
@@ -82,7 +86,7 @@ useEffect(() => {
                 
             {/* <NumberFormat  value={price} isNumericString={true} prefix={'$'} className="mb-5" />
            */}
-           <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} className="text-lg"  />
+           <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'₹'} className="text-lg"  />
                            
             </div>
              {isPrime && 

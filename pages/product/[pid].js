@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import Header from '../../src/components/Header'
-import {React,useState,useEffect} from 'react'
+import {React,useState,useEffect, useContext} from 'react'
 import { SingleProduct } from '../../src/components/SingleProduct'
 import {useSelector} from 'react-redux'
 import { selectProducts } from '../../src/slices/productSlice'
@@ -11,10 +11,11 @@ import { selectItemPrice, selectItems } from '../../src/slices/basketSlice'
 import CurrencyFormat from 'react-currency-format'
 import {loadStripe} from '@stripe/stripe-js'
 import axios from 'axios';
+import { currencyContext } from '../../src/Currency'
 const stripePromise=loadStripe(process.env.stripe_public_key)
 const Product = ( ) => {
 
-
+const currency=useContext(currencyContext)
 const globalProducts=useSelector(selectProducts)
 
 const items=useSelector(selectItems)
@@ -66,7 +67,10 @@ const [session]=useSession();
   
 
 
-  return (<div className="bg-gray-100">
+  return (
+  <>
+  <body className="flex flex-col min-h-screen">
+  <div className="bg-gray-100 h-screen">
 
    <Header products={globalProducts}/>
   
@@ -90,7 +94,7 @@ const [session]=useSession();
       <>
         <h2 className="whitespace-nowrap font-bold text-lg border-b">Subtotal({items.length} items): {" "}
          <span className="font-bold"></span>
-                    <CurrencyFormat value={totalPrice} displayType={'text'} thousandSeparator={true} prefix={'$'} className="font-bold text-lg"  />
+                    <CurrencyFormat value={totalPrice} displayType={'text'} thousandSeparator={true} prefix={'₹'} className="font-bold text-lg"  />
 
         
         </h2>
@@ -105,9 +109,12 @@ const [session]=useSession();
 
 
 
-<Footer/> 
 
-  </div>)
+       
+  </div>
+  </body>
+  <Footer/> 
+  </>)
   // <p>Post: {pid}</p>
 }
 

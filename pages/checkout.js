@@ -1,4 +1,4 @@
-import {React,useState} from 'react'
+import {React,useContext,useState} from 'react'
 import Header from '../src/components/Header'
 import Image from 'next/image'
 import { selectItemPrice, selectItems } from '../src/slices/basketSlice'
@@ -9,12 +9,14 @@ import Footer from '../src/components/Footer';
 import CurrencyFormat from 'react-currency-format';
 import {loadStripe} from '@stripe/stripe-js'
 import axios from 'axios';
+import { currencyContext } from '../src/Currency';
 const stripePromise=loadStripe(process.env.stripe_public_key)
 
 
 const Checkout = ({products}) => {
 
   
+const currency=useContext(currencyContext)
 
 //pulling items from the redux stores
 const items = useSelector(selectItems)
@@ -49,16 +51,16 @@ if(result.error){ alert(result.error.message)}
 
     return (
         <>
-
-          <div className="bg-gray-100 h-full">
+          <body>
+          <div className="bg-gray-100">
             <Header products={products}/>
             {/* leftside */}
-          <main className="lg:flex max-w-screen-2xl mx-auto h-full   flex-grow">
+          <main className="lg:flex max-w-screen-2xl mx-auto min-h-full   flex-grow">
 
                   <div className="flex-grow m-5 shadow-sm">
                          <Image src="https://links.papareact.com/ikj" width={1020} height={250} objectFit="contain"/>
 
-                             <div className="flex flex-col p-5 space-y-10 bg-white">
+                             <div className="flex flex-col p-10 space-y-10 bg-white">
                                   <h1 className="text-xl font-bold border-b pb-4">{items.length==0?"Your Shopping basket is empty":"Shopping Basket"}</h1>
 
                                {items.map((item,i)=>(
@@ -85,7 +87,7 @@ if(result.error){ alert(result.error.message)}
                   <>
                     <h2 className="whitespace-nowrap font-bold text-lg border-b">Subtotal ({items.length} items): { " "}
                     <span className="font-bold"></span>
-                    <CurrencyFormat value={totalPrice} displayType={'text'} thousandSeparator={true} prefix={'$'} className="font-bold text-lg"  />
+                    <CurrencyFormat value={totalPrice} displayType={'text'} thousandSeparator={true} prefix={'₹'} className="font-bold text-lg"  />
                     </h2>
                     <button disabled={!session}  role="link" className={`button whitespace-nowrap  mt-2 ${!session && `from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed hover:bg-gray-300 `}`} onClick={createCheckoutSession}>
                     {!session? "Sign in to checkout":"Proceed to checkout"}
@@ -99,6 +101,8 @@ if(result.error){ alert(result.error.message)}
         </main>
      
     </div>
+      
+       </body>
        <Footer/>
         </>
     )

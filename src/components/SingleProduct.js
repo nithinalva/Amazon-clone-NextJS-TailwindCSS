@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Image from 'next/image'
 import NumberFormat from 'react-number-format';
 import { StarIcon } from '@heroicons/react/solid';
@@ -9,11 +9,12 @@ import {useEffect,useState} from 'react'
 import axios from 'axios';
 import {useSession,signin} from 'next-auth/client'
 import {loadStripe} from '@stripe/stripe-js'
+import { currencyContext } from '../Currency';
 
 const stripePromise=loadStripe(process.env.stripe_public_key)
 export const SingleProduct = ({id,title,image,description,price,rating,category,isPrime}) => {
 
-
+    const currency=useContext(currencyContext)
     const [session]=useSession();
 
     const [prod,setprod]=useState()
@@ -116,7 +117,7 @@ export const SingleProduct = ({id,title,image,description,price,rating,category,
            
                         <div className="my-2 md:my-10 flex items-center ">
                             {/* <NumberFormat  value={price} isNumericString={true} prefix={'$'}  className="font-bold text-2xl" /> */}
-                            <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} className="font-bold text-2xl"  />
+                            <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'₹'} className="font-bold text-2xl"  />
                             {isPrime && 
              <div className="flex items-center mx-2 -mt-5">
                  <img src="https://links.papareact.com/fdw" alt="" objectFit="contain" className="w-10 sm:w-16 "/>

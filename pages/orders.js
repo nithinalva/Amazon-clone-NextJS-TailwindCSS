@@ -26,7 +26,7 @@ const orders = ({orders}) => {
                      <h1 className="text-3xl">
                     Your Orders
                      </h1>
-                     <p className="border-b mb-2 pb-2 border-yellow-400 text-red-800 text-xs">please refresh the page if your recent orders aren't Updated!!</p>
+                     <p className="border-b mb-2 pb-2 border-yellow-400 text-red-800 text-xs">please refresh the page if your recent orders are not  Updated!!</p>
                     {session?
                     <h1 className="font-bold">{orders.length} Orders</h1>:<h2>please sign in to see your order</h2>
                     }
