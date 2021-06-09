@@ -100,7 +100,7 @@ const Footer = () => {
 
                                 <div className="text-sm inline sm:hidden my-2  text-white">
 
-                                <p className="link">Your Orders</p>
+                                <p className="link" onClick={session?router.push('/orders'):signin}>Your Orders</p>
                                 <p className="link">Amazon App Download</p>
                                 <p className="link">Find a Wish List</p>
                                 <p className="link">Sell</p>
