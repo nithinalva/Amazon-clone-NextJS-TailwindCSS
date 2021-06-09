@@ -15,7 +15,7 @@ export const Order = ({id,amount,amountShipping,images,timestamps,items}) => {
                 
                 <div>
                     <p className="text-xs font-bold">TOTAL PRICE: </p>
-                    <CurrencyFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'$'}/> - Next Delivery-{" "}<CurrencyFormat value={amountShipping} displayType={'text'} thousandSeparator={true} prefix={'$'}/>
+                    <CurrencyFormat value={amount} displayType={'text'} thousandSeparator={true} prefix={'INR '}/> - Next Delivery-{" "}<CurrencyFormat value={amountShipping} displayType={'text'} thousandSeparator={true} prefix={'INR '}/>
                 </div>
 
                 <p className="text-sm whitespace-nowrap sm:text-xl self-end flex-1 text-right text-blue-500"> {items.length} items</p>

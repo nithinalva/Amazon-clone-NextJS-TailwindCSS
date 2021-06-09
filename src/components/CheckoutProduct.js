@@ -5,9 +5,12 @@ import NumberFormat from 'react-number-format';
 import {useDispatch} from 'react-redux'
 import { addToBasket, removeFromBasket } from '../slices/basketSlice';
 import CurrencyFormat from 'react-currency-format';
+import {useState, useEffect, useContext} from 'react';
+import { currencyContext, currencyConverterToINR } from '../Currency';
 
 const CheckoutProduct = ({id,title,price,description,category,image,rating,isPrime}) => {
 
+    const currency=useContext(currencyContext)
     const dispatch=useDispatch();
 
     const addItemToBasket=()=>{
@@ -48,7 +51,7 @@ const removeItemFromBasket=()=>{
                 ))}
                     </div>
                     <p className="line-clamp-3 my-2 text-xs text-gray-600 ">{description}</p>
-                             <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} className="font-bold text-xl"  />
+                             <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'₹'} className=" text-xl"  />
                     {isPrime && 
              <div className="flex items-center mx-2 ">
                  <img src="https://links.papareact.com/fdw" alt="" objectFit="contain" className="w-12  "/>

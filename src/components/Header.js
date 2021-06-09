@@ -222,9 +222,9 @@ const [session]=useSession();       //session.user.name session.user.image
                             </div>
                             
 
-                            <div className= "hidden sm:link" >       {/* right side of container*/}
+                            <div className= "hidden sm:flex flex-col link" onClick={()=>router.push('/orders')} >       {/* right side of container*/}
                                 <p className="text-white ">Returns</p>
-                                <p className="text-white font-bold md:text-xs ">& Orders</p>
+                                <p className="text-white font-bold md:text-sm ">& Orders</p>
                             </div>
 
 
