@@ -69,8 +69,8 @@ const [session]=useSession();
 
   return (
   <>
-  <body className="flex flex-col min-h-screen">
-  <div className="bg-gray-100 h-screen">
+  <body className="flex flex-col ">
+  <div className="bg-gray-100 ">
 
    <Header products={globalProducts}/>
   
